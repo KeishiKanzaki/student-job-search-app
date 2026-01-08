@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { DashboardNav } from "@/components/dashboard-nav"
 import { MessagingInterface } from "@/components/messaging-interface"
 import { mockMessages } from "@/lib/mock-data"
@@ -24,12 +25,14 @@ export default function MessagesPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50">
       <DashboardNav user={user} />
       <main className="container mx-auto px-4 py-8">
-        <MessagingInterface
-          currentUserId={user.id}
-          sentMessages={sentMessages}
-          receivedMessages={receivedMessages}
-          currentProfile={currentProfile}
-        />
+        <Suspense fallback={<div>Loading messages...</div>}>
+          <MessagingInterface
+            currentUserId={user.id}
+            sentMessages={sentMessages}
+            receivedMessages={receivedMessages}
+            currentProfile={currentProfile}
+          />
+        </Suspense>
       </main>
     </div>
   )
